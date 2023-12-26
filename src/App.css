@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+:root {
+    --white :  #fffdfc;
+    --dull_white : #C8EBF3;
+    --dull_green : #7bc788;
+    --brown : #E0EDE0;
+    --red : #7b172c;
+    --dark_brown : #7b172c;
+    --light_green : #DEF2E2;
+    --dark_purple: #7C4FB6;
+    --dark_blue : #252164;
+    --dark_ocean : #0D2933;
+    --green : rgb(77, 240, 37);
+}
+
+.App {
+    background-color: var(--dull_white);
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
