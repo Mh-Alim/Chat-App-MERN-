@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./App.css";
 import MainContainer from "./components/MainContainer";
 import { Routes, Route } from "react-router-dom";
@@ -9,8 +10,9 @@ import CreateGroup from "./components/CreateGroup";
 import Login from "./components/Login";
 
 function App() {
+  const isDarkTheme:boolean = useSelector((state: { toggleTheme: boolean }) => state.toggleTheme)
   return (
-    <div className="App">
+    <div className={`App ${isDarkTheme && `dark_bg2`}`}>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="app" element={<MainContainer />}>

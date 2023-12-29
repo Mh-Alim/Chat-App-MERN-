@@ -16,6 +16,11 @@
     --dark_blue : #252164;
     --dark_ocean : #0D2933;
     --green : rgb(77, 240, 37);
+    --dark_theme : #191919;
+    --dark_bg : #27374D;
+    --dark_bg2 : #06152e;
+    --black_font : rgb(41 35 35 / 83%);
+    --light_bg : rgb(243, 243, 243);
 }
 
 .App {

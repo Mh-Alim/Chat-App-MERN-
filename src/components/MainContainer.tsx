@@ -1,23 +1,15 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import "./MainContainer.css"
 
 import Sidebar from './Sidebar'
-import ChatArea from './ChatArea'
-import Welcome from './Welcome'
-import CreateGroup from './CreateGroup'
-import Login from './Login'
-import UserGroups from './UserGroups'
 
 const MainContainer = () => {
+  const isDarkTheme:boolean = useSelector((state: { toggleTheme: boolean }) => state.toggleTheme)
   return (
-    <div className='main_container'>
+    <div className={`main_container ${isDarkTheme && `dark_bg`}`}>
       <Sidebar />
-      {/* <ChatArea /> */}
-      {/* <Welcome /> */}
-      {/* <CreateGroup /> */}
-      {/* <Login /> */}
-      {/* <UserGroups /> */}
       <Outlet />
     </div>
   )
