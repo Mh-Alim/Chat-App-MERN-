@@ -430,7 +430,7 @@
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 
 }
-.login_form > p {
+.login_form > p:first-child {
     font-size: 1.7rem;
     font-weight: 700;
     margin-bottom: 1rem;
@@ -460,6 +460,34 @@
     color: white;
 }
 
+.loader {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db; 
+    animation: spin 1s linear infinite;
+}
+
+.loader_background {
+    margin-top: 2rem;
+    width: 6.7rem;
+    height: 3rem;
+    background-color: var(--green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
 /* User group css  */
 
 .user_groups_container {
