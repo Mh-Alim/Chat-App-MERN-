@@ -14,7 +14,6 @@ const Authentication = ({ children }: PropType) => {
     const auth = async () => {
       
       const token: string | null = localStorage.getItem("authToken");
-      console.log(token);
         if (!token) {
             navigate("/")
             return 
@@ -30,7 +29,6 @@ const Authentication = ({ children }: PropType) => {
       }
     );
       const jsonRes = await res.json();
-      console.log(jsonRes);
       if (!jsonRes.success) {
       navigate("/");
       return;

@@ -31,12 +31,7 @@ function App() {
             </Authentication>
           }
         />
-        <Route
-          path="/signup"
-          element={
-              <Signup />
-          }
-        />
+        <Route path="/signup" element={<Signup />} />
 
         <Route
           path="app"

@@ -6,7 +6,7 @@ import { ToastCallError, ToastCallSuccess } from './ReactToast';
 import {io} from "socket.io-client"
 
 
-const socket = io("http://localhost:5000")
+// const socket = io("http://localhost:5000")
 const CreateGroup = () => {
   const isDarkTheme = useAppSelector((state: { toggleTheme: boolean }) => state.toggleTheme);
   const [gpName,setGpName] = useState<string>("")
@@ -16,15 +16,15 @@ const CreateGroup = () => {
 
   useEffect(() => {
     
-    socket.on("create_group_success", () => {
-      ToastCallSuccess("Group created successfully");
-    });
-    socket.on("create_group_error", (message : string) => { 
-      ToastCallError(message);
-    })
-    return () => {
-      socket.off();
-    }
+    // socket.on("create_group_success", () => {
+    //   ToastCallSuccess("Group created successfully");
+    // });
+    // socket.on("create_group_error", (message : string) => { 
+    //   ToastCallError(message);
+    // })
+    // return () => {
+    //   socket.off();
+    // }
   },[])
   const handleClick = async () => {
     if (!gpName) {
@@ -32,7 +32,7 @@ const CreateGroup = () => {
       return;
     }
 
-    socket.emit("create_group", _id, gpName);
+    // socket.emit("create_group", _id, gpName);
     
   }
   return (

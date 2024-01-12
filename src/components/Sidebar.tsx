@@ -28,7 +28,7 @@ type ConvType = {
 
   
 }
-let socket = io("http://localhost:5000");
+// let socket = io("http://localhost:5000");
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -38,10 +38,10 @@ const Sidebar = () => {
 
 
   useEffect(() => {
-    socket.on('add_user_success', (_id: string, name: string, month: number,year: number, day: number, hours: number, min: number) => {
-      console.log("add user success")
-      setConversation((prevConv) => [...prevConv, { _id, name,lastMessage: undefined, month,year, day, hours, min }])
-    })
+    // socket.on('add_user_success', (_id: string, name: string, month: number,year: number, day: number, hours: number, min: number) => {
+    //   console.log("add user success")
+    //   setConversation((prevConv) => [...prevConv, { _id, name,lastMessage: undefined, month,year, day, hours, min }])
+    // })
   }, []);
 
 

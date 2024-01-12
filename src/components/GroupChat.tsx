@@ -14,7 +14,7 @@ import GroupChatElement from "./GroupChatElement";
 
 
 let myId: string;
-const socket = io("http://localhost:5000")
+// const socket = io("http://localhost:5000")
 const GroupChat = () => {
 
   myId = useAppSelector((state:any) => state.user._id)
@@ -35,13 +35,13 @@ const GroupChat = () => {
 
     // establishing socket connection
     
-    socket.on("group_created", (gpId: string, gpName: string) => {
-      console.log("gp crshfd");
-      setGroups((prevGp) => [...prevGp, { _id: gpId, name: gpName }]);
-    })
-    return () => {
-      socket.off()
-    }
+    // socket.on("group_created", (gpId: string, gpName: string) => {
+    //   console.log("gp crshfd");
+    //   setGroups((prevGp) => [...prevGp, { _id: gpId, name: gpName }]);
+    // })
+    // return () => {
+    //   socket.off()
+    // }
     // myId = 
   }, []);
   return (
@@ -61,12 +61,12 @@ const GroupChat = () => {
         />
       </div>
       <div className={`user_groups_users ${isDarkTheme && `dark_bg`}`}>
-        {groups && groups.map((group:{_id: string,name : string}) => (
+        {/* {groups && groups.map((group:{_id: string,name : string}) => (
           <GroupChatElement socket={socket} key={group._id} data={group} /> 
-        ))}
+        ))} */}
       </div>
     </div>
   );
 };
-export {socket}
+// export {socket}
 export default GroupChat;

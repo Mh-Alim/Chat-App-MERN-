@@ -7,22 +7,56 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { useAppSelector } from "../app/hooks";
 import { ToastCallError, ToastCallSuccess } from "./ReactToast";
+import { useNavigate } from "react-router-dom";
 
-
-
-
-let socket = io("http://localhost:5000");
-
+let socket:any;
 const UserGroups = () => {
-
   let myId: string = useAppSelector((state: any) => state.user._id);
 
-  const [users, setUsers] = useState<Array<{ _id: string, name: string }>>([]);
-  
+  const navigate = useNavigate();
+  const [users, setUsers] = useState<Array<{ _id: string; name: string }>>([]);
+
   const isDarkTheme: boolean = useSelector(
     (state: { toggleTheme: boolean }) => state.toggleTheme
   );
+  console.log(users);
+  console.log("comp");
+  useEffect(() => {
+    const newUserHandler = (userId: string, name: string) => {
+      setUsers((prevUsers) => [...prevUsers, { _id: userId, name: name }]);
+      console.log("new user");
+    };
 
+    const addUserFailHandler = (message: string) => {
+      ToastCallError(message);
+    };
+
+    const addUserSuccessHandler = () => {
+      ToastCallSuccess("Successfully added");
+    };
+    socket =  io("http://localhost:5000");
+
+    socket.on("new_user", newUserHandler);
+
+    socket.on("add_user_fail", addUserFailHandler);
+
+    socket.on("add_user_success", addUserSuccessHandler);
+
+    socket.on("disconnect", function () {
+      console.log("Got disconnect!");
+      // setInterval(() => {
+      //   console.log("set interval");
+      // }, 5000);
+      navigate("/app/welcome");
+    });
+
+    return () => {
+      socket.disconnect();
+      // socket.off("new_user", newUserHandler);
+      // socket.off("add_user_fail", addUserFailHandler);
+      // socket.off("add_user_success", addUserSuccessHandler);
+    };
+  }, []);
   useEffect(() => {
     const fetchAllUsers = async () => {
       const res: Response = await fetch(
@@ -32,21 +66,7 @@ const UserGroups = () => {
       setUsers(jsonRes.users);
     };
     fetchAllUsers();
-
-    socket.on("new_user", (userId: string, name: string) => {
-      setUsers((prevUsers) => [...prevUsers, { _id: userId, name: name }]);
-    });
-
-    socket.on('add_user_fail', (message: string) => {
-      ToastCallError(message)
-    });
-
-    socket.on('add_user_success', () => {
-      ToastCallSuccess("Successfully added")
-    });
-    return () => {
-      socket.off()
-    }
+    console.log("useeffect2");
   }, []);
   return (
     <div className={`user_groups_container ${isDarkTheme && "dark_bg"}`}>
@@ -65,9 +85,12 @@ const UserGroups = () => {
         />
       </div>
       <div className={`user_groups_users ${isDarkTheme && `dark_bg`}`}>
-        {users && users.map((user:{_id: string,name : string}) => (
-          user._id !== myId ? <User socket={socket} key={user._id} data={user} /> : null 
-        ))}
+        {users &&
+          users.map((user: { _id: string; name: string }) =>
+            user._id !== myId ? (
+              <User socket={socket} key={user._id} data={user} />
+            ) : null
+          )}
       </div>
     </div>
   );
