@@ -5,19 +5,19 @@ import { updateUser } from "../features/userSlice";
 
 type PropType = {
   children: ReactNode;
+  routing?: string;
 };
 
-const Authentication = ({ children }: PropType) => {
-
+const Authentication = ({ routing, children }: PropType) => {
+  
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-    const auth = async () => {
-      
-      const token: string | null = localStorage.getItem("authToken");
-        if (!token) {
-            navigate("/")
-            return 
-        }
+  const auth = async () => {
+    const token: string | null = localStorage.getItem("authToken");
+    if (!token) {
+      navigate("/");
+      return;
+    }
     const res: Response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL || ""}/user/user-exists`,
       {
@@ -28,21 +28,24 @@ const Authentication = ({ children }: PropType) => {
         },
       }
     );
-      const jsonRes = await res.json();
-      if (!jsonRes.success) {
+    const jsonRes = await res.json();
+    if (!jsonRes.success) {
       navigate("/");
       return;
-    }
-      else {
-      dispatch(updateUser(jsonRes.user))
-        
-      navigate("/app/welcome")
+    } else {
+      dispatch(updateUser(jsonRes.user));
+      
+      routing && navigate(routing);
     }
   };
   useEffect(() => {
     auth();
   }, []);
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+    </>
+  );
 };
 
 export default Authentication;

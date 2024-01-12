@@ -26,7 +26,7 @@ function App() {
         <Route
           path="/"
           element={
-            <Authentication>
+            <Authentication routing="/app/welcome">
               <Login />
             </Authentication>
           }
@@ -44,7 +44,7 @@ function App() {
           <Route
             path="welcome"
             element={
-              <Authentication>
+              <Authentication >
                 <Welcome />
               </Authentication>
             }
@@ -52,7 +52,7 @@ function App() {
           <Route
             path="chat"
             element={
-              <Authentication>
+              <Authentication >
                 <ChatArea />
               </Authentication>
             }
@@ -60,7 +60,7 @@ function App() {
           <Route
             path="users"
             element={
-              <Authentication>
+              <Authentication >
                 <UserGroups />
               </Authentication>
             }
