@@ -1,10 +1,14 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import chat_img from "../assets/images/chat.png";
 import { useNavigate } from "react-router-dom";
 import { ToastCallError, ToastCallSuccess } from "./ReactToast";
 import { useAppDispatch } from "../app/hooks";
 import { updateUser } from "../features/userSlice";
+
+
+
+
 type IUser = {
   name: string;
   email: string;
@@ -18,6 +22,7 @@ const Signup = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
 
 
   const isDarkTheme: boolean = useSelector(
@@ -66,6 +71,8 @@ const Signup = () => {
     ToastCallError(jsonRes.message);
     setUser({ name: "", email: "", password: "" });
   };
+
+
 
   return (
     <div className="login_container">

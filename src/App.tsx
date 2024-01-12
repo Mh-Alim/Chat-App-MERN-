@@ -14,6 +14,7 @@ import {
   ToastContainerSuccess,
 } from "./components/ReactToast";
 import Authentication from "./components/Authentication";
+import GroupChat from "./components/GroupChat";
 
 function App() {
   const isDarkTheme: boolean = useSelector(
@@ -33,9 +34,7 @@ function App() {
         <Route
           path="/signup"
           element={
-            <Authentication>
               <Signup />
-            </Authentication>
           }
         />
 
@@ -75,7 +74,7 @@ function App() {
             path="groups"
             element={
               <Authentication>
-                <UserGroups />
+                <GroupChat />
               </Authentication>
             }
           />

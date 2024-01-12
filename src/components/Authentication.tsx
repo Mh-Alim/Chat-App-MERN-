@@ -1,15 +1,20 @@
 import React, { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../app/hooks";
+import { updateUser } from "../features/userSlice";
 
 type PropType = {
   children: ReactNode;
 };
 
 const Authentication = ({ children }: PropType) => {
+
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
     const auth = async () => {
       
-        const token: string | null = localStorage.getItem("authToken");
+      const token: string | null = localStorage.getItem("authToken");
+      console.log(token);
         if (!token) {
             navigate("/")
             return 
@@ -24,12 +29,15 @@ const Authentication = ({ children }: PropType) => {
         },
       }
     );
-    const jsonRes = await res.json();
-    if (!jsonRes.success) {
-      navigate("/signup");
+      const jsonRes = await res.json();
+      console.log(jsonRes);
+      if (!jsonRes.success) {
+      navigate("/");
       return;
     }
-    else {
+      else {
+      dispatch(updateUser(jsonRes.user))
+        
       navigate("/app/welcome")
     }
   };

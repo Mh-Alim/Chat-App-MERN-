@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const ToastContainerError = <ToastContainer
     position="top-center"
-    autoClose={5000}
+    autoClose={1000}
     hideProgressBar={false}
     newestOnTop={false}
     closeOnClick
@@ -19,7 +19,7 @@ export const ToastContainerError = <ToastContainer
 export const ToastCallError = (error:string)=>{
      toast.error(error, {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -33,7 +33,7 @@ export const ToastCallError = (error:string)=>{
 
 export const ToastContainerSuccess = <ToastContainer
     position="bottom-center"
-    autoClose={5000}
+    autoClose={1000}
     hideProgressBar={false}
     newestOnTop={false}
     closeOnClick
@@ -48,7 +48,7 @@ export const ToastContainerSuccess = <ToastContainer
 export const ToastCallSuccess = (message:string)=>{
     toast.success(message, {
         position: "bottom-center",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
