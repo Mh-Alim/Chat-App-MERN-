@@ -31,27 +31,9 @@ const CreateGroup = () => {
       ToastCallError("Empty Fields");
       return;
     }
-    console.log("clikc ", gpName);
 
     socket.emit('create_gp', _id, gpName);
 
-    // const res = await fetch(`${process.env.REACT_APP_BACKEND_URL || ""}/chat/group`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({_id,gpName})
-    // });
-    // const json = await res.json();
-
-    // if (json.success) {
-    //   ToastCallSuccess("Group created successfully");
-    //   setGpName("");
-    //   return;
-    // }
-
-    // ToastCallError(json.message);
-    // setGpName("");
     setGpName("");
   }
   return (

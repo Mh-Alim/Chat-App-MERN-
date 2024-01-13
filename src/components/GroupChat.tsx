@@ -1,13 +1,9 @@
 import { useSelector } from "react-redux";
-
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import chat_image from "../assets/images/chat.png";
-import User from "./User";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { useAppSelector } from "../app/hooks";
-import { ToastCallError, ToastCallSuccess } from "./ReactToast";
 import GroupChatElement from "./GroupChatElement";
 
 
@@ -16,8 +12,6 @@ import GroupChatElement from "./GroupChatElement";
 let socket:any;
 const GroupChat = () => {
 
-  const [render, setRender] = useState<boolean>(true);
-  // myId = useAppSelector((state:any) => state.user._id)
   const [groups, setGroups] = useState<Array<{_id : string, chatName : string}>>([]);
   const isDarkTheme: boolean = useSelector(
     (state: { toggleTheme: boolean }) => state.toggleTheme
@@ -72,5 +66,4 @@ const GroupChat = () => {
     </div>
   );
 };
-// export {socket}
 export default GroupChat;

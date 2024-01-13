@@ -1,7 +1,4 @@
-import { useEffect } from "react";
 import { useAppSelector } from "../app/hooks"
-import { io } from "socket.io-client"
-import { ToastCallError, ToastCallSuccess } from "./ReactToast";
 
 
 interface UserType {
