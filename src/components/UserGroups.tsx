@@ -19,8 +19,6 @@ const UserGroups = () => {
   const isDarkTheme: boolean = useSelector(
     (state: { toggleTheme: boolean }) => state.toggleTheme
   );
-  console.log(users);
-  console.log("comp");
   useEffect(() => {
     const newUserHandler = (userId: string, name: string) => {
       setUsers((prevUsers) => [...prevUsers, { _id: userId, name: name }]);
@@ -44,7 +42,6 @@ const UserGroups = () => {
 
     socket.on("disconnect", function () {
       console.log("Got disconnect!");
-      navigate("/app/welcome");
     });
 
     return () => {
@@ -60,7 +57,6 @@ const UserGroups = () => {
       setUsers(jsonRes.users);
     };
     fetchAllUsers();
-    console.log("useeffect2");
   }, []);
   return (
     <div className={`user_groups_container ${isDarkTheme && "dark_bg"}`}>

@@ -29,14 +29,16 @@ const Authentication = ({ routing, children }: PropType) => {
       }
     );
     const jsonRes = await res.json();
-    if (!jsonRes.success) {
-      navigate("/");
-      return;
-    } else {
-      dispatch(updateUser(jsonRes.user));
-      
-      routing && navigate(routing);
-    }
+    // if (!jsonRes.success) {
+    //   console.log("req coming here !!");
+    //   navigate("/");
+    //   return;
+    // }
+    // else {
+    //   dispatch(updateUser(jsonRes.user));
+    //   console.log("routing -> ",routing)
+    //   routing && navigate(routing);
+    // }
   };
   useEffect(() => {
     auth();
