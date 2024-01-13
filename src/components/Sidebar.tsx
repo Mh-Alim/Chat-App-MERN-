@@ -63,7 +63,7 @@ const Sidebar = () => {
       setConversation(jsonRes.chatRooms);
     }
       
-    fetchChats()
+    fetchChats();
   },[])
 
 

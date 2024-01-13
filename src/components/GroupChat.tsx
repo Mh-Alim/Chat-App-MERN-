@@ -13,36 +13,40 @@ import GroupChatElement from "./GroupChatElement";
 
 
 
-let myId: string;
-// const socket = io("http://localhost:5000")
+let socket:any;
 const GroupChat = () => {
 
-  myId = useAppSelector((state:any) => state.user._id)
-  const [groups, setGroups] = useState<Array<{_id : string, name : string}>>([]);
+  const [render, setRender] = useState<boolean>(true);
+  // myId = useAppSelector((state:any) => state.user._id)
+  const [groups, setGroups] = useState<Array<{_id : string, chatName : string}>>([]);
   const isDarkTheme: boolean = useSelector(
     (state: { toggleTheme: boolean }) => state.toggleTheme
   );
-    console.log(groups);
-  useEffect(() => {
-    // const fetchAllGroups = async () => {
-    //   const res: Response = await fetch(
-    //     `${process.env.REACT_APP_BACKEND_URL || ""}/chat/groups`
-    //   );
-    //   const jsonRes = await res.json();
-    //   setGroups(jsonRes.groups);
-    // };
-    // fetchAllGroups();
 
-    // establishing socket connection
-    
-    // socket.on("group_created", (gpId: string, gpName: string) => {
-    //   console.log("gp crshfd");
-    //   setGroups((prevGp) => [...prevGp, { _id: gpId, name: gpName }]);
-    // })
-    // return () => {
-    //   socket.off()
-    // }
-    // myId = 
+
+
+  useEffect(() => { 
+    socket = io("http://localhost:5000");
+
+    socket.on('new_gp', (gpId: string, gpName: string) => {
+      console.log("new gp");
+      console.log(gpId, gpName);
+      setGroups((prevGp) => [...prevGp, { chatName: gpName, _id: gpId }]);
+    })
+    return () => {
+      socket.disconnect();
+    }
+
+  }, []);
+  useEffect(() => {
+
+    const fetchAllGroups = async () => {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/chat/groups`);
+      const json = await res.json();
+
+      setGroups(json.groups);
+    }
+    fetchAllGroups();
   }, []);
   return (
     <div className={`user_groups_container ${isDarkTheme && "dark_bg"}`}>
@@ -61,9 +65,9 @@ const GroupChat = () => {
         />
       </div>
       <div className={`user_groups_users ${isDarkTheme && `dark_bg`}`}>
-        {/* {groups && groups.map((group:{_id: string,name : string}) => (
-          <GroupChatElement socket={socket} key={group._id} data={group} /> 
-        ))} */}
+        {groups && groups.map((group: { _id: string, chatName: string }) => (
+          <GroupChatElement key={group._id} data={group} /> 
+        ))}
       </div>
     </div>
   );

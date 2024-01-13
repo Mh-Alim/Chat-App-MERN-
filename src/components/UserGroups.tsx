@@ -44,17 +44,11 @@ const UserGroups = () => {
 
     socket.on("disconnect", function () {
       console.log("Got disconnect!");
-      // setInterval(() => {
-      //   console.log("set interval");
-      // }, 5000);
       navigate("/app/welcome");
     });
 
     return () => {
       socket.disconnect();
-      // socket.off("new_user", newUserHandler);
-      // socket.off("add_user_fail", addUserFailHandler);
-      // socket.off("add_user_success", addUserSuccessHandler);
     };
   }, []);
   useEffect(() => {
