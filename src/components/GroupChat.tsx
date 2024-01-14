@@ -5,6 +5,9 @@ import chat_image from "../assets/images/chat.png";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import GroupChatElement from "./GroupChatElement";
+import { ToastCallError, ToastCallSuccess } from "./ReactToast";
+import {refreshFunction} from "../features/refreshSlice"
+import { useAppDispatch } from "../app/hooks";
 
 
 
@@ -12,10 +15,12 @@ import GroupChatElement from "./GroupChatElement";
 let socket:any;
 const GroupChat = () => {
 
+  
   const [groups, setGroups] = useState<Array<{_id : string, chatName : string}>>([]);
   const isDarkTheme: boolean = useSelector(
     (state: { toggleTheme: boolean }) => state.toggleTheme
   );
+  const dispatch = useAppDispatch();
 
 
 
@@ -26,7 +31,20 @@ const GroupChat = () => {
       console.log("new gp");
       console.log(gpId, gpName);
       setGroups((prevGp) => [...prevGp, { chatName: gpName, _id: gpId }]);
-    })
+    });
+
+
+    // To add Group to the sidebar
+    socket.on("add_gp_to_sidebar_success", () => {
+      console.log("coming to group added ");
+      ToastCallSuccess("Group added successfully");
+      dispatch(refreshFunction());
+    });
+
+    socket.on("add_gp_to_sidebar_fail", (message: string) => {
+      ToastCallError(message);
+    });
+
     return () => {
       socket.disconnect();
     }
@@ -60,7 +78,7 @@ const GroupChat = () => {
       </div>
       <div className={`user_groups_users ${isDarkTheme && `dark_bg`}`}>
         {groups && groups.map((group: { _id: string, chatName: string }) => (
-          <GroupChatElement key={group._id} data={group} /> 
+          <GroupChatElement key={group._id} socket={socket} data={group} /> 
         ))}
       </div>
     </div>

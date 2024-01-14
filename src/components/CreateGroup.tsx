@@ -22,9 +22,13 @@ const CreateGroup = () => {
       ToastCallSuccess("Group created successfully");
     });
 
-    socket.on("create_gp_error", (message : string) => {
+    socket.on("create_gp_error", (message: string) => {
       ToastCallError(message);
-    })
+    });
+
+    return () => {
+      socket.disconnect();
+    }
   }, []);
   const handleClick = async () => {
     if (!gpName.trim()) {
@@ -49,5 +53,4 @@ const CreateGroup = () => {
     </div>
   )
 }
-
 export default CreateGroup

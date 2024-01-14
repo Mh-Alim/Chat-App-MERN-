@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import toggleSlice from "../features/toggleSlice";
 import userSlice from "../features/userSlice";
+import refreshSlice from "../features/refreshSlice";
 
 
 const store = configureStore({
     reducer: {
         toggleTheme: toggleSlice,
-        user : userSlice,
+        user: userSlice,
+        sidebarRefresh : refreshSlice
     }
 })
 

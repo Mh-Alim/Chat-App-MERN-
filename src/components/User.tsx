@@ -11,7 +11,7 @@ const User = ({ socket,data }: UserType) => {
   const handleClick = () => {
     const otherUserId = data._id;
     console.log(myId, otherUserId);
-    // socket.emit('add_user',myId,otherUserId);
+    socket.emit('add_user_to_sidebar',myId,otherUserId);
     
   }
   return (

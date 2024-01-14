@@ -44,6 +44,16 @@ const UserGroups = () => {
       console.log("Got disconnect!");
     });
 
+
+    // To add User to the sidebar
+    socket.on("add_user_to_sidebar_success", () => {
+      ToastCallSuccess("User added successfully");
+    });
+
+    socket.on("add_user_to_sidebar_fail", (message: string) => {
+      ToastCallError(message);
+    });
+
     return () => {
       socket.disconnect();
     };
