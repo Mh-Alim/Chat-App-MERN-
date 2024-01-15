@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 
 type ConvType = {
-  _id: string;
+  chat_id: string;
   name: string;
   lastMessage: string | undefined;
   date: string;
@@ -27,7 +27,7 @@ let socket: any;
 const Sidebar = () => {
   const navigate = useNavigate();
   const isDarkTheme: boolean = useAppSelector(
-    (state: { toggleTheme: boolean }) => state.toggleTheme
+    (state: any) => state.toggleTheme
   );
 
   const sbRefresh: boolean = useAppSelector((state: any) => state.sidebarRefresh);
@@ -36,28 +36,25 @@ const Sidebar = () => {
   const [conversation, setConversation] = useState<Array<ConvType>>([]);
 
   let userId: string = useAppSelector((state: any) => state.user._id);
-  console.log("userid is ", userId);
   useEffect(() => {
     socket = io("http://localhost:5000");
-    console.log("useeffect ", userId);
 
 
     socket.on(
       "add_user_sidebar",
       (
+        chatId: string,
         user1: { _id: string; name: string },
         user2: { _id: string; name: string },
         date: string
       ) => {
-        console.log("userId : ", userId);
-        console.log("conver is : ", conversation);
         if (userId == user1._id) {
           setConversation((prev) => {
             if (prev)
               return [
                 ...prev,
                 {
-                  _id: user2._id,
+                  chat_id: chatId,
                   name: user2.name,
                   lastMessage: undefined,
                   date,
@@ -66,7 +63,7 @@ const Sidebar = () => {
             return [
               ...conversation,
               {
-                _id: user2._id,
+                chat_id: chatId,
                 name: user2.name,
                 lastMessage: undefined,
                 date,
@@ -80,7 +77,7 @@ const Sidebar = () => {
               return [
                 ...prev,
                 {
-                  _id: user1._id,
+                  chat_id: chatId,
                   name: user1.name,
                   lastMessage: undefined,
                   date,
@@ -89,7 +86,7 @@ const Sidebar = () => {
             return [
               ...conversation,
               {
-                _id: user1._id,
+                chat_id: chatId,
                 name: user1.name,
                 lastMessage: undefined,
                 date,
@@ -101,17 +98,16 @@ const Sidebar = () => {
     );
 
     socket.on("new_gp", (gpId: string, groupName: string, date: string,adminId : string) => {
-      console.log("coming to me ");
       if (JSON.stringify(userId) !== JSON.stringify(adminId)) return;
         setConversation((prev: any) => {
           if (prev)
             return [
               ...prev,
-              { _id: gpId, name: groupName, lastMessage: undefined, date },
+              { chat_id: gpId, name: groupName, lastMessage: undefined, date },
             ];
           return [
             ...conversation,
-            { _id: gpId, name: groupName, lastMessage: undefined, date },
+            { chat_id: gpId, name: groupName, lastMessage: undefined, date },
           ];
         });
       }
@@ -122,7 +118,6 @@ const Sidebar = () => {
   }, [userId]);
 
 
-  console.log(conversation);
   useEffect(() => {
     const fetchChats = async () => {
       const token: string | null = localStorage.getItem("authToken");
@@ -187,13 +182,14 @@ const Sidebar = () => {
         {conversation &&
           conversation.map((conv: any) => (
             <ConversationItem
+              chatId = {conv.chat_id}
               logo={conv.name && conv.name[0]}
               name={conv.name}
               last_message={
                 conv.lastMessage ? conv.lastMessage : "Dont have chats"
               }
               time={conv.date}
-              key = {conv._id}
+              key = {conv.chat_id}
             />
           ))}
       </div>

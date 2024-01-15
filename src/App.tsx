@@ -50,7 +50,7 @@ function App() {
             }
           />
           <Route
-            path="chat"
+            path="chat/:chatId"
             element={
               <Authentication >
                 <ChatArea />

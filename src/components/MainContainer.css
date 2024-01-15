@@ -296,6 +296,7 @@
 .my_message {
     display: flex;
     justify-content: flex-end;
+    margin: 0.5rem;
 }
 .my_message > div {
     background-color: var(--dull_green);
