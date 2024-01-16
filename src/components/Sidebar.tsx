@@ -132,12 +132,12 @@ const Sidebar = () => {
         }
       );
       const jsonRes = await res.json();
+      console.log("see ",jsonRes)
       setConversation(jsonRes.chatRooms);
     };
 
     fetchChats();
   }, [sbRefresh]);
-
   // get all conversation while rendering
 
   return (

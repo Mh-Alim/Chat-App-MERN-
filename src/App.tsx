@@ -15,6 +15,7 @@ import {
 } from "./components/ReactToast";
 import Authentication from "./components/Authentication";
 import GroupChat from "./components/GroupChat";
+import DeletedChat from "./components/DeletedChat";
 
 function App() {
   const isDarkTheme: boolean = useSelector(
@@ -79,6 +80,12 @@ function App() {
               <Authentication>
                 <CreateGroup />
               </Authentication>
+            }
+          />
+          <Route
+            path="delete_chat"
+            element={
+                <DeletedChat />
             }
           />
         </Route>
